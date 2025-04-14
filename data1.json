@@ -1,0 +1,23 @@
+{
+    "devices": [
+      {
+        "name": "Ноутбук",
+        "price": 80000,
+        "specs": {
+          "cpu": "Intel i7",
+          "ram": "16GB",
+          "storage": "512GB SSD"
+        },
+        "brands": ["Apple", "Dell", "HP"]
+      },
+      {
+        "name": "Смартфон",
+        "price": 35000,
+        "specs": {
+          "os": "Android 13",
+          "battery": "5000mAh"
+        },
+        "brands": ["Samsung", "Xiaomi"]
+      }
+    ]
+  }
