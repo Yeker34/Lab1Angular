@@ -1,1 +1,23 @@
-<p>page3 works!</p>
+<div class="user-form">
+    <div>
+        <label>Имя</label>
+        <input name="name" [(ngModel)]="name" (ngModelChange)="onNameChange()" required/>
+    </div>
+    <div>
+        <label>Фамилия</label>
+        <input name="surname" [(ngModel)]="surname" required/>
+    </div>
+    <div>
+        <label>Возраст</label>
+        <input type="number" name="age" [(ngModel)]="age" required min = "1"/>
+    </div>
+    <div>
+        <button (click)="addUser()">Добавить</button>
+    </div>
+</div>
+<div class ="user-list">
+    <h3>Пользователи</h3>
+    <ul>
+        <li *ngFor="let user of users"> {{user.name}} {{user.surname}} {{user.age}}</li>
+    </ul>
+</div>
