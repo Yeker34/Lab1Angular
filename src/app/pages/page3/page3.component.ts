@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { DataService } from '../../core/services/data.service';
+import { Component, OnInit} from '@angular/core';
+import { DataService, Student } from '../../core/services/data.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { filter, map } from 'rxjs';
 
 export class User {
   constructor(public name: string, public age: number, public surname: string) {
@@ -14,16 +15,31 @@ export class User {
   templateUrl: './page3.component.html',
   styleUrl: './page3.component.css'
 })
-export class Page3Component {
+export class Page3Component implements OnInit {
+
   users: User[] = [];
+  students: Student[] = [];
 
   name = '';
   surname = '';
   age = 0;
 
   constructor(private dataService: DataService) {
-    console.log(this.dataService.getExampleData());
+    
   }
+
+  ngOnInit(): void {
+      this.dataService.getStudents()
+      .pipe(
+        filter(data => data != null),
+        map((data => (data.map(student => ({...student, group: student.group + ' 1 курс'})))))
+      )
+      .subscribe((students) => {
+          this.students = students;
+      })
+
+  }
+
 
   addUser() {
     this.users.push(new User(this.name, this.age, this.surname));
@@ -33,10 +49,9 @@ export class Page3Component {
   }
 
   onNameChange(): void {
-    console.log('Поле изменилось: ' + this.name)
-  }
-
-  onSubmit (form: NgForm) {
-    console.log(form);
+    console.log('Поле поменялосб ' + this.name)
   }
 }
+
+
+

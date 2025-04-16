@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { routes } from './app.routes';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

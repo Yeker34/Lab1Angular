@@ -1,12 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http'
+import { Observable, catchError, of } from "rxjs";
 
-@Injectable({
-  providedIn: 'root' // Делает сервис доступным глобально
-})
+export interface Student {
+    name: string;
+    surname: string;
+    group: string;
+}
+
+@Injectable({ providedIn: 'root' })
 export class DataService {
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
-    getExampleData(): string[] {
-        return ['Data1', 'Data2'];
+    getStudents(): Observable<Array<Student>> {
+        return this.http.get<Array<Student>>('assets/data6zadanie.json')
+            .pipe(
+                catchError(err => {
+                    console.log(err);
+                    return of([]);
+                })
+            )
     }
 }
