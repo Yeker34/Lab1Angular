@@ -1,0 +1,103 @@
+<div class="container">
+    <h1>Планировщик задач</h1>
+    
+    <nav>
+      <a routerLink="/" 
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{exact: true}" 
+         class="link">
+        Задачи
+      </a>
+      <a routerLink="/create" 
+         routerLinkActive="active" 
+         class="link">
+        Создать задачу
+      </a>
+    </nav>
+  
+    <!-- Форма создания задачи -->
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form-container">
+      <div class="form-group">
+        <label>Тип*:</label>
+        <select formControlName="type" required>
+          <option value="bug">Ошибка</option>
+          <option value="task">Задача</option>
+        </select>
+        <div *ngIf="taskForm.get('type')?.invalid && taskForm.touched" class="error">
+          Обязательное поле
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Приоритет:</label>
+        <select formControlName="priority">
+          <option value="">Не указан</option>
+          <option value="critical">Критический</option>
+          <option value="high">Высокий</option>
+          <option value="medium">Средний</option>
+          <option value="low">Низкий</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label>Статус*:</label>
+        <select formControlName="status" required>
+          <option value="open">Открыта</option>
+          <option value="in-progress">В работе</option>
+          <option value="done">Завершена</option>
+        </select>
+        <div *ngIf="taskForm.get('status')?.invalid && taskForm.touched" class="error">
+          Обязательное поле
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Заголовок*:</label>
+        <input type="text" formControlName="title" required>
+        <div *ngIf="taskForm.get('title')?.invalid && taskForm.touched" class="error">
+          Обязательное поле
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Описание:</label>
+        <textarea formControlName="description"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label>Исполнитель:</label>
+        <input type="text" formControlName="actor">
+      </div>
+  
+      <div class="form-group">
+        <label>Создатель*:</label>
+        <input type="text" formControlName="creator" required>
+        <div *ngIf="taskForm.get('creator')?.invalid && taskForm.touched" class="error">
+          Обязательное поле
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" [disabled]="taskForm.invalid">Добавить задачу</button>
+        <button type="button" (click)="taskForm.reset()">Сбросить</button>
+      </div>
+    </form>
+  
+    <!-- Список задач -->
+    <div *ngIf="tasks.length" class="tasks-container">
+      <div *ngFor="let task of tasks; let i = index" class="task-card">
+        <div class="task-header">
+          <h3>#{{task.number}} {{task.title}}</h3>
+          <button class="delete-btn" (click)="deleteTask(i)">×</button>
+        </div>
+        <p><strong>Тип:</strong> {{task.type | titlecase}}</p>
+        <p><strong>Статус:</strong> {{task.status | titlecase}}</p>
+        <p><strong>Приоритет:</strong> {{task.priority || 'Не указан' | titlecase}}</p>
+        <p><strong>Описание:</strong> {{task.description || 'Нет описания'}}</p>
+        <p><strong>Исполнитель:</strong> {{task.actor || 'Не назначен'}}</p>
+        <p><strong>Создатель:</strong> {{task.creator}}</p>
+        <p><strong>Дата создания:</strong> {{task.date | date:'dd.MM.yyyy HH:mm'}}</p>
+        <p><strong>Дата изменения:</strong> {{task.datech | date:'dd.MM.yyyy HH:mm'}}</p>
+      </div>
+    </div>
+  </div>

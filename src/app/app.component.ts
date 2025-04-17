@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-root',
   imports: [RouterOutlet, FormsModule, RouterModule, CommonModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  template: `<router-outlet></router-outlet>`
 })
 
 export class AppComponent {
